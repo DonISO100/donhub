@@ -1,1 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f2ed;
+      --text: #1c1e21;
+      --border: #c4b998;
+      --link: #5b3e1d;
+      --header: #fffdf6;
+      --file-bg: #fefcf8;
+      --accent: #b29763;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .navbar {
+      background: var(--header);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--border);
+      font-size: 1.4rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      height: 80px;
+      width: 80px;
+      border-radius: 6px;
+      box-shadow: 0 0 25px 10px rgba(255, 230, 180, 0.75);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .sidebar {
+      background-color: var(--file-bg);
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      min-height: 300px;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+
+    .repo-content {
+      background: var(--file-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .repo-header {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: var(--link);
+    }
+
+    .file-list {
+      border-top: 1px solid var(--border);
+    }
+
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .file-name {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .file-name:hover {
+      text-decoration: underline;
+    }
+
+    .file-meta {
+      color: #7a7464;
+      font-size: 0.9rem;
+    }
+
+    .gif-embed {
+      width: 100%;
+      height: 100%;
+    }
+
+    .gif-embed img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div>DonHub</div>
+    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSao6NgWmh45d3j2qGEouJZdSkrDdFyjUtzx4HHhIUXgnpHnfZE" alt="Logo" class="logo">
+  </div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="gif-embed">
+        <img src="https://files.catbox.moe/dg80si.gif" alt="GIF">
+      </div>
+    </aside>
+
+    <main class="repo-content">
+      <div class="repo-header">DonHub</div>
+
+      <div class="file-list">
+        <div class="file-item">
+          <a href="#" class="file-name">Quote Mines</a>
+          <div class="file-meta"></div>
+        </div>
+        <div class="file-item">
+          <a href="#" class="file-name">Trendyweb1 Dox</a>
+          <div class="file-meta"></div>
+        </div>
+        <div class="file-item">
+          <a href="#" class="file-name">Bible Links</a>
+          <div class="file-meta"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
 
