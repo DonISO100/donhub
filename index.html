@@ -105,12 +105,14 @@
     .gif-embed {
       width: 100%;
       height: 100%;
+      overflow: hidden;
+      border-radius: 8px;
     }
 
     .gif-embed img {
+      display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       border-radius: 8px;
     }
   </style>
@@ -124,7 +126,7 @@
   <div class="container">
     <aside class="sidebar">
       <div class="gif-embed">
-        <img src="https://files.catbox.moe/dg80si.gif" alt="GIF">
+        <img src="https://files.catbox.moe/dg80si.gif?cachebust=1" alt="GIF">
       </div>
     </aside>
 
@@ -149,4 +151,3 @@
   </div>
 </body>
 </html>
-
