@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bible Editions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f2ed;
+      --text: #1c1e21;
+      --border: #c4b998;
+      --link: #5b3e1d;
+      --header: #fffdf6;
+      --file-bg: #fefcf8;
+      --accent: #b29763;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .navbar {
+      background: var(--header);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--border);
+      font-size: 1.4rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      height: 80px;
+      width: 80px;
+      border-radius: 6px;
+      box-shadow: 0 0 25px 10px rgba(255, 230, 180, 0.75);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: var(--file-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: var(--link);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+      color: #5a3c1c;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .isbn {
+      color: #7a7464;
+      font-size: 0.85rem;
+      display: block;
+      margin-left: 1rem;
+    }
+
+    details {
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      background: #fffaf2;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--link);
+    }
+
+    summary:hover {
+      color: #a0683f;
+    }
+
+    details ul {
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div>DonHub</div>
+    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSao6NgWmh45d3j2qGEouJZdSkrDdFyjUtzx4HHhIUXgnpHnfZE" alt="Logo" class="logo">
+  </div>
+
+  <div class="container">
+    <h1>Bible Editions</h1>
+
+    <h2>Vulgate</h2>
+
+    <details>
+      <summary>Sixtine Vulgate</summary>
+      <ul>
+        <li><a href="https://archive.org/details/vulgatasixtina/page/n9/mode/2up" target="_blank">1560 Sixtine Vulgate (Pope Sixtus V)</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Clementine Vulgate</summary>
+      <ul>
+        <li><a href="https://www.google.com/books/edition/Biblia_sacra_vulgatae_editionis/sIwgf1mnU0UC?hl=en" target="_blank">1592 Clementine Vulgate</a></li>
+        <li><a href="https://archive.org/details/bub_gb_bPXlOFEn6NYC/page/n3/mode/2up" target="_blank">1598 Clementine Vulgate</a></li>
+        <li><a href="https://archive.org/details/bibliasacravulga0000unse_c5h8/page/n7/mode/2up" target="_blank">1881 Oxford Edition</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Nova Vulgata</summary>
+      <ul>
+        <li><a href="https://archive.org/details/nova-vulgata-bibliorum-sacrorum-editio-typica-altera/page/n1/mode/2up" target="_blank">Nova Vulgata (Editio Typica Altera)</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Critical Editions</summary>
+      <ul>
+        <li><a href="https://archive.org/details/vulgata_weber_gryson/mode/2up" target="_blank">Weber-Gryson Vulgate</a></li>
+      </ul>
+    </details>
+
+    <h2>Masoretic Text</h2>
+    <ul>
+      <li>
+        <a href="https://archive.org/details/biblia-hebraica-stuttgartensia/mode/2up?view=theater" target="_blank">
+          Biblia Hebraica Stuttgartensia (BHS, 1977)
+        </a>
+      </li>
+    </ul>
+
+    <details>
+      <summary>Biblia Hebraica Quinta (BHQ, ongoing)</summary>
+      <ul>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%20Genesis" target="_blank">Genesis</a></li>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/BHQ%20Deut" target="_blank">Deuteronomy</a></li>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%20Judges" target="_blank">Judges</a></li>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%2012%20Minor" target="_blank">Twelve Prophets</a></li>
+        <li>Job</li>
+        <li>Proverbs</li>
+        <li>
+          <a href="https://file.garden/aCejiYtlsRZWN09w/BHQ%20General" target="_blank">
+            General Introduction, Ruth, Canticles, Qoheleth, Lamentations, Esther, Ezra and Nehemiah
+          </a>
+        </li>
+      </ul>
+    </details>
+
+    <h2>Septuagint</h2>
+    <ul>
+      <li>Rahlfs-Hanhart Septuaginta</li>
+      <li>Septuaginta: Vetus Testamentum Graecum (Göttingen)</li>
+    </ul>
+
+    <h2>Dead Sea Scrolls</h2>
+    <details>
+      <summary>Readers Edition</summary>
+      <ul>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/Dead%20Sea%20Scrolls%20Vol%201" target="_blank">Volume 1</a></li>
+        <li><a href="https://file.garden/aCejiYtlsRZWN09w/Dead%20Sea%20Scrolls%20Vol%202" target="_blank">Volume 2</a></li>
+      </ul>
+    </details>
+
+   <h2>Greek New Testament</h2>
+<ul>
+  <li><a href="https://file.garden/aCejiYtlsRZWN09w/NA28" target="_blank">Nestle-Aland Novum Testamentum Graece (NA28)</a></li>
+  <li><a href="https://file.garden/aCejiYtlsRZWN09w/UBS%206" target="_blank">United Bible Societies' Greek New Testament (5th edition)</a></li>
+  <li><a href="https://byzantinetext.com/wp-content/uploads/2016/11/editions-rp2.pdf" target="_blank">Byzantine Majority Text (Robinson-Pierpont)</a></li>
+  <li><a href="https://archive.org/details/novum-testamentum-graece-et-latine/mode/2up?view=theater" target="_blank">Novum Testamentum Graece et Latine (Tischendorf–Jager)</a></li>
+  <li>
+    <a href="https://archive.org/details/synopsisoffourgo0000unse/page/n9/mode/2up" target="_blank">
+      Synopsis of the Four Gospels
+    </a>
+    <span class="isbn">
+      Based on the Greek text of the Nestle-Aland 26th edition and UBS 3rd edition; English: RSV, 2nd ed.
+    </span>
+  </li>
+</ul>
+
+
+    <details>
+      <summary>Editio Critica Maior (ECM)</summary>
+      <ul>
+        <li>The Gospel of Mark
+          <span class="isbn">ISBNs: 978-3-438-05615-3, 978-3-438-05616-0, 978-3-438-05617-7</span>
+        </li>
+        <li>The Acts of the Apostles
+          <span class="isbn">ISBNs: 978-3-438-05609-2, 978-3-438-05610-8, 978-3-438-05612-2, 978-3-438-05613-9</span>
+        </li>
+        <li>Catholic Letters
+          <span class="isbn">ISBNs: 978-3-438-05606-1, 978-3-438-05607-8</span>
+        </li>
+        <li>Revelation
+          <span class="isbn">ISBNs: 978-3-438-05619-1, 978-3-438-05620-7, 978-3-438-05621-4, 978-3-438-05622-1</span>
+        </li>
+        <li>Parallel Pericopes
+          <span class="isbn">ISBN: 978-3-438-05608-5</span>
+        </li>
+      </ul>
+    </details>
+  </div>
+</body>
+</html>
