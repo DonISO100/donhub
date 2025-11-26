@@ -4,153 +4,203 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DonHub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f2ed;
-      --text: #1c1e21;
-      --border: #c4b998;
-      --link: #5b3e1d;
-      --header: #fffdf6;
-      --file-bg: #fefcf8;
-      --accent: #b29763;
+      /* The Platonic Red: Absolute, Deep, Visceral */
+      --red-essence: #990000;
+      --red-vivid: #ff0000;
+      --light: #ffffff;
+      --border-width: 2px;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Roboto Mono', monospace;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .navbar {
-      background: var(--header);
-      padding: 1rem 2rem;
-      border-bottom: 2px solid var(--border);
-      font-size: 1.4rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
-    .logo {
-      height: 80px;
-      width: 80px;
-      border-radius: 6px;
-      box-shadow: 0 0 25px 10px rgba(255, 230, 180, 0.75);
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .sidebar {
-      background-color: var(--file-bg);
       padding: 0;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      min-height: 300px;
+      background-color: var(--red-essence);
+      color: var(--light);
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    .repo-content {
-      background: var(--file-bg);
-      padding: 2rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .repo-header {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
-      color: var(--link);
-    }
-
-    .file-list {
-      border-top: 1px solid var(--border);
-    }
-
-    .file-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .file-name {
-      color: var(--link);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .file-name:hover {
-      text-decoration: underline;
-    }
-
-    .file-meta {
-      color: #7a7464;
-      font-size: 0.9rem;
-    }
-
-    .gif-embed img {
-      display: block;
+    /* --- The Layout Container --- */
+    .container {
       width: 100%;
-      height: auto;
-      border-radius: 8px;
+      max-width: 800px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* --- Header Area --- */
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 4px solid var(--light); /* Heavy header line */
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: flex-end; /* Align title to right since meta is gone */
+      align-items: flex-end;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+
+    /* --- The "Color Bar" Decoration --- */
+    .color-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border: 1px solid var(--light);
+    }
+    .bar-segment {
+      height: 12px;
+      flex-grow: 1;
+      border-right: 1px solid var(--light);
+    }
+    .bar-segment:last-child { border-right: none; }
+    /* Shades of the Platonic Form */
+    .s1 { background: #fff; }
+    .s2 { background: #ccc; }
+    .s3 { background: #999; }
+    .s4 { background: #666; }
+    .s5 { background: #333; }
+    .s6 { background: #000; }
+
+    /* --- Navigation List (The Spec Sheet) --- */
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      border: var(--border-width) solid var(--light);
+      background: rgba(0,0,0,0.1);
+    }
+
+    .nav-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      align-items: center;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--light);
+      border-bottom: 1px dashed var(--light); /* Dashed lines like the image */
+      transition: all 0.1s step-end;
+    }
+
+    .nav-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Typography & Tags */
+    .sku-box {
+      font-size: 0.9rem;
+      border: 1px solid var(--light);
+      padding: 4px 8px;
+      text-align: center;
+      margin-right: 2rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .item-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .status-indicator {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      border: 1px solid var(--light);
+      padding: 2px 8px;
+      opacity: 0.6;
+    }
+
+    /* --- The Interaction (Invert) --- */
+    .nav-item:hover {
+      background-color: var(--light);
+      color: var(--red-essence);
+    }
+
+    .nav-item:hover .sku-box {
+      border-color: var(--red-essence);
+      background: var(--red-essence);
+      color: var(--light);
+    }
+    
+    .nav-item:hover .status-indicator {
+      border-color: var(--red-essence);
+      color: var(--red-essence);
+      opacity: 1;
+      font-weight: bold;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      h1 { font-size: 3rem; }
+      .nav-item { 
+        grid-template-columns: 1fr; 
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .sku-box { width: fit-content; margin-bottom: 0.5rem; }
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <div>DonHub</div>
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSao6NgWmh45d3j2qGEouJZdSkrDdFyjUtzx4HHhIUXgnpHnfZE" alt="Logo" class="logo">
-  </div>
 
   <div class="container">
-    <aside class="sidebar">
-      <div class="gif-embed">
-        <img src="https://c.tenor.com/PLED4JVYckoAAAAd/tenor.gif" alt="Funny cat GIF">
-      </div>
-    </aside>
+    
+    <header>
+      <h1>DonHub</h1>
+    </header>
 
-    <main class="repo-content">
-      <div class="repo-header">DonHub</div>
+    <!-- Color Bar / Calibration -->
+    <div class="color-bar">
+      <div class="bar-segment s1"></div>
+      <div class="bar-segment s2"></div>
+      <div class="bar-segment s3"></div>
+      <div class="bar-segment s4"></div>
+      <div class="bar-segment s5"></div>
+      <div class="bar-segment s6"></div>
+    </div>
 
-     <div class="file-list">
-  <div class="file-item">
-    <a href="quotes.html" class="file-name">Quote Mines</a>
-    <div class="file-meta"></div>
-  </div>
-</div>
+    <main class="nav-list">
+      
+      <a href="articles.html" class="nav-item">
+        <div class="sku-box">ART-01</div>
+        <span class="item-title">Articles</span>
+        <div class="status-indicator">Select</div>
+      </a>
 
-        <div class="file-item">
-          <a href="https://www.gov.il/he/pages/rights_subject3" class="file-name">Trendyweb1 Dox</a>
-          <div class="file-meta"></div>
-        </div>
-        <div class="file-item">
-          <a href="bible.html" class="file-name">Bible Links</a>
-          <div class="file-meta"></div>
-        </div>
-              <div class="file-item">
-          <a href="Religious.HTML" class="file-name">Religious Life Links</a>
-          <div class="file-meta"></div>
-        </div>
-              <div class="file-item">
-          <a href="link.html" class="file-name">Link Maker</a>
-          <div class="file-meta"></div>
-        </div>
-      </div>
+      <a href="bible.html" class="nav-item">
+        <div class="sku-box">BIB-02</div>
+        <span class="item-title">Bible Links</span>
+        <div class="status-indicator">Select</div>
+      </a>
+
+      <a href="Religious.HTML" class="nav-item">
+        <div class="sku-box">REL-03</div>
+        <span class="item-title">Religious Life</span>
+        <div class="status-indicator">Select</div>
+      </a>
+
     </main>
+
   </div>
+
 </body>
 </html>
