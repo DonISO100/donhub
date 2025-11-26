@@ -3,237 +3,509 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bible Editions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <title>Religious Life - DonHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f2ed;
-      --text: #1c1e21;
-      --border: #c4b998;
-      --link: #5b3e1d;
-      --header: #fffdf6;
-      --file-bg: #fefcf8;
-      --accent: #b29763;
+      /* The Platonic Red: Absolute, Deep, Visceral */
+      --red-essence: #990000;
+      --red-vivid: #ff0000;
+      --light: #ffffff;
+      --border-width: 2px;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Roboto Mono', monospace;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .navbar {
-      background: var(--header);
-      padding: 1rem 2rem;
-      border-bottom: 2px solid var(--border);
-      font-size: 1.4rem;
-      font-weight: bold;
+      padding: 0;
+      background-color: var(--red-essence);
+      color: var(--light);
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .logo {
-      height: 80px;
-      width: 80px;
-      border-radius: 6px;
-      box-shadow: 0 0 25px 10px rgba(255, 230, 180, 0.75);
-    }
+    a { color: inherit; text-decoration: none; }
 
+    /* --- Layout --- */
     .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      background: var(--file-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      width: 100%;
+      max-width: 900px; /* Slightly wider for content */
       padding: 2rem;
+      position: relative;
+    }
+
+    /* --- Header --- */
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--light);
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
     h1 {
-      font-size: 2.2rem;
-      color: var(--link);
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
     }
 
-    h2 {
-      font-size: 1.5rem;
+    .back-link {
+      font-size: 0.9rem;
+      border: 1px solid var(--light);
+      padding: 5px 10px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--light);
+      color: var(--red-essence);
+    }
+
+    /* --- The Data List (Details/Summary) --- */
+    .spec-sheet {
+      display: flex;
+      flex-direction: column;
+      border: var(--border-width) solid var(--light);
+      background: rgba(0,0,0,0.1);
       margin-top: 2rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.3rem;
-      color: #5a3c1c;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.6rem;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .isbn {
-      color: #7a7464;
-      font-size: 0.85rem;
-      display: block;
-      margin-left: 1rem;
     }
 
     details {
-      margin: 1rem 0;
-      padding: 0.5rem 1rem;
-      background: #fffaf2;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border-bottom: 1px dashed var(--light);
+      transition: all 0.2s ease;
     }
 
+    details:last-child { border-bottom: none; }
+
+    /* Summary: Acts like the nav-item */
     summary {
+      display: grid;
+      grid-template-columns: 100px 1fr auto; /* SKU | Title | Indicator */
+      align-items: center;
+      padding: 1.5rem;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: var(--link);
+      list-style: none;
+      transition: background 0.2s;
     }
 
+    summary::-webkit-details-marker { display: none; }
+
+    /* Hover State */
     summary:hover {
-      color: #a0683f;
+      background-color: rgba(255,255,255,0.1);
     }
 
-    details ul {
-      padding-left: 1.5rem;
-      margin-top: 0.5rem;
+    /* Active/Open State (Inverted) */
+    details[open] summary {
+      background-color: var(--light);
+      color: var(--red-essence);
+      border-bottom: 1px solid var(--red-essence);
+    }
+
+    /* Elements inside Summary */
+    .sku-box {
+      font-size: 0.8rem;
+      border: 1px solid var(--light);
+      padding: 4px;
+      text-align: center;
+      margin-right: 1.5rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    details[open] summary .sku-box {
+      border-color: var(--red-essence);
+      background: var(--red-essence);
+      color: var(--light);
+    }
+
+    .item-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .status-indicator {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      border: 1px solid var(--light);
+      padding: 2px 8px;
+      opacity: 0.6;
+    }
+
+    details[open] summary .status-indicator {
+      border-color: var(--red-essence);
+      color: var(--red-essence);
+      opacity: 1;
+      font-weight: bold;
+      content: "OPEN"; /* Not possible in CSS directly, but visual style changes */
+    }
+
+    /* --- Expanded Content --- */
+    .data-panel {
+      padding: 2rem;
+      background: rgba(0,0,0,0.2);
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .data-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .data-list li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .data-label {
+      opacity: 0.6;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .data-value {
+      font-weight: 600;
+    }
+    
+    .data-value a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+    
+    .data-value a:hover {
+      background: var(--light);
+      color: var(--red-essence);
+      text-decoration: none;
+      padding: 0 4px;
+    }
+
+    .warning {
+      color: #ff9999;
+      border: 1px solid #ff9999;
+      padding: 0.5rem;
+      display: inline-block;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    /* Images */
+    .spec-image {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--light);
+      filter: grayscale(100%) contrast(120%);
+      transition: filter 0.3s;
+    }
+
+    .spec-image:hover {
+      filter: grayscale(0%) contrast(100%);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .data-panel { grid-template-columns: 1fr; }
+      summary { grid-template-columns: 1fr auto; gap: 1rem; }
+      .sku-box { grid-row: 1; width: fit-content; margin-bottom: 0.5rem; }
+      .item-title { grid-row: 2; grid-column: 1 / -1; }
+      .status-indicator { grid-row: 1; grid-column: 2; justify-self: end; }
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <div>DonHub</div>
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSao6NgWmh45d3j2qGEouJZdSkrDdFyjUtzx4HHhIUXgnpHnfZE" alt="Logo" class="logo">
-  </div>
 
   <div class="container">
-    <h1>Bible Editions</h1>
+    <header>
+      <h1>Religious Life</h1>
+      <a href="index.html" class="back-link">&lt; Return to Hub</a>
+    </header>
 
-    <h2>Vulgate</h2>
+    <div class="spec-sheet">
 
-    <details>
-      <summary>Sixtine Vulgate</summary>
-      <ul>
-        <li><a href="https://archive.org/details/vulgatasixtina/page/n9/mode/2up" target="_blank">1560 Sixtine Vulgate (Pope Sixtus V)</a></li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-01</div>
+          <span class="item-title">Holy Angels Novitiate</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Original Name</span><span class="data-value">Fratres Sacerdotalis Fraternitatis Sancti Pii X</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://holyangels-novitiate.com/en" target="_blank">Winona, Minnesota, USA</a></span></li>
+            <li><span class="data-label">Rector</span><span class="data-value">Fr. Charles J. Ward, SSPX</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">No</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Contact page, Letter, or Telephone</span></li>
+          </ul>
+          <img src="https://sspx.org/sites/default/files/drupal-7/winona.jpg" alt="Holy Angels" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Clementine Vulgate</summary>
-      <ul>
-        <li><a href="https://www.google.com/books/edition/Biblia_sacra_vulgatae_editionis/sIwgf1mnU0UC?hl=en" target="_blank">1592 Clementine Vulgate</a></li>
-        <li><a href="https://archive.org/details/bub_gb_bPXlOFEn6NYC/page/n3/mode/2up" target="_blank">1598 Clementine Vulgate</a></li>
-        <li><a href="https://archive.org/details/bibliasacravulga0000unse_c5h8/page/n7/mode/2up" target="_blank">1881 Desclee Lefebvre Edition</a></li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-02</div>
+          <span class="item-title">Fraternity of the Transfiguration</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Original Name</span><span class="data-value">Fraternité de la Transfiguration</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://transfiguration.over-blog.com/" target="_blank">Mérigny, France</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Écône)</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Contact page, Letter, Fax, Telephone</span></li>
+          </ul>
+          <img src="https://image.over-blog.com/tkTVZahU3RB7Hxcb8QReh9cmeWs=/filters:no_upscale()/image%2F2319146%2F20170406%2Fob_1e0f06_fraternite-de-la-transfiguration-12.JPG" alt="Transfiguration" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Nova Vulgata</summary>
-      <ul>
-        <li><a href="https://archive.org/details/nova-vulgata-bibliorum-sacrorum-editio-typica-altera/page/n1/mode/2up" target="_blank">Nova Vulgata (Editio Typica Altera)</a></li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-03</div>
+          <span class="item-title">Friars of Our Lady of the Rosary</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Dominicans</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://laportelatine.org/communautes-amies/les-freres-de-notre-dame-du-rosaire-dominicains" target="_blank">Saint-Paul-de-Serre, France</a></span></li>
+            <li><span class="data-label">Superior</span><span class="data-value">Fr. Raymond O.P.</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter or Telephone</span></li>
+            <div class="warning">⚠️ Not Accepting Vocations</div>
+          </ul>
+          <img src="https://laportelatine.org/wp-content/uploads/2020/04/DSC_02991.jpg" alt="Friars Rosary" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Critical Editions</summary>
-      <ul>
-        <li><a href="https://archive.org/details/vulgata_weber_gryson/mode/2up" target="_blank">Weber-Gryson Vulgate</a></li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-04</div>
+          <span class="item-title">Capuchins Friars Minor</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Franciscans (Traditional Observance)</span></li>
+            <li><span class="data-label">Mother House</span><span class="data-value"><a href="https://capucins-morgon.fr/" target="_blank">Villié-Morgon, France</a></span></li>
+            <li><span class="data-label">Other Houses</span><span class="data-value">Castlenau-d’Arbieu; Cour-Cheverny</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Écône)</span></li>
+          </ul>
+          <img src="https://capucins-morgon.fr/images/community/cE0hxAtcl24EqTYxyIraWQfoVEqOEHTHYrtUQEIF.jpg" alt="Capuchins" class="spec-image">
+        </div>
+      </details>
 
-    <h2>Masoretic Text</h2>
-    <ul>
-      <li>
-        <a href="https://archive.org/details/biblia-hebraica-stuttgartensia/mode/2up?view=theater" target="_blank">
-          Biblia Hebraica Stuttgartensia (BHS, 1977)
-        </a>
-      </li>
-    </ul>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-05</div>
+          <span class="item-title">Traditional Redemptorist Missioners</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://redemptoris.org/" target="_blank">Mussey, Michigan, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Alphonsus Maria, CSsR</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter or Telephone</span></li>
+            <div class="warning">⚠️ Not Accepting Vocations</div>
+          </ul>
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzVGLPd71coXbUScQ5EJnDoM5eQdrbSgJ-MdrZ4XXUTmqTgEeyr0p4FzASt_uRZz5toNsQnCSed4ZDHHnDQz4srjCDb8VtP7c-jscwmkuw82utH6u-w58JEGfC9CL-oNg8thL1VQQ=s1360-w1360-h1020-rw" alt="Redemptorists" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Biblia Hebraica Quinta (BHQ, ongoing)</summary>
-      <ul>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%20Genesis" target="_blank">Genesis</a></li>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/BHQ%20Deut" target="_blank">Deuteronomy</a></li>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%20Judges" target="_blank">Judges</a></li>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/HBQ%2012%20Minor" target="_blank">Twelve Prophets</a></li>
-        <li>Job</li>
-        <li>Proverbs</li>
-        <li>
-          <a href="https://file.garden/aCejiYtlsRZWN09w/BHQ%20General" target="_blank">
-            General Introduction, Ruth, Canticles, Qoheleth, Lamentations, Esther, Ezra and Nehemiah
-          </a>
-        </li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-06</div>
+          <span class="item-title">Our Lady of Guadalupe Monastery</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://ourladyofguadalupemonastery.com/" target="_blank">Silver City, New Mexico, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Cyprian, OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Dillwyn)</span></li>
+          </ul>
+          <img src="https://ourladyofguadalupemonastery.com/cdn/shop/files/Visit_Page_header.png?v=1720450457&width=3840" alt="Guadalupe" class="spec-image">
+        </div>
+      </details>
 
-    <h2>Septuagint</h2>
-    <ul>
-      <li>Rahlfs-Hanhart Septuaginta</li>
-      <li>Septuaginta: Vetus Testamentum Graecum (Göttingen)</li>
-    </ul>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-07</div>
+          <span class="item-title">Monastery of the Immaculate Heart</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">SSPX Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.kloster-reichenstein.de/" target="_blank">Monschau, Germany</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Bernhard OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">German</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter</span></li>
+          </ul>
+          <img src="https://fsspx.news/sites/default/files/styles/content_image_16_9_desktop/public/fsspxactualites/fsspxnews/K_Kloster_2005_02.jpg?itok=6in-Ug29" alt="Reichenstein" class="spec-image">
+        </div>
+      </details>
 
-    <h2>Dead Sea Scrolls</h2>
-    <details>
-      <summary>Readers Edition</summary>
-      <ul>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/Dead%20Sea%20Scrolls%20Vol%201" target="_blank">Volume 1</a></li>
-        <li><a href="https://file.garden/aCejiYtlsRZWN09w/Dead%20Sea%20Scrolls%20Vol%202" target="_blank">Volume 2</a></li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-01</div>
+          <span class="item-title">Discalced Hermits of Mt. Carmel</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.edcarm.org/" target="_blank">Colorado & Pennsylvania, USA</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.edcarm.org/wp-content/uploads/2022/11/mass-500.webp" alt="Carmel Hermits" class="spec-image">
+        </div>
+      </details>
 
-   <h2>Greek New Testament</h2>
-<ul>
-  <li><a href="https://file.garden/aCejiYtlsRZWN09w/NA28" target="_blank">Nestle-Aland Novum Testamentum Graece (NA28)</a></li>
-  <li><a href="https://file.garden/aCejiYtlsRZWN09w/UBS%206" target="_blank">United Bible Societies' Greek New Testament (5th edition)</a></li>
-  <li><a href="https://byzantinetext.com/wp-content/uploads/2016/11/editions-rp2.pdf" target="_blank">Byzantine Majority Text (Robinson-Pierpont)</a></li>
-  <li><a href="https://archive.org/details/novum-testamentum-graece-et-latine/mode/2up?view=theater" target="_blank">Novum Testamentum Graece et Latine (Tischendorf–Jager)</a></li>
-  <li>
-    <a href="https://archive.org/details/synopsisoffourgo0000unse/page/n9/mode/2up" target="_blank">
-      Synopsis of the Four Gospels
-    </a>
-    <span class="isbn">
-      Based on the Greek text of the Nestle-Aland 26th edition and UBS 3rd edition; English: RSV, 2nd ed.
-    </span>
-  </li>
-</ul>
+      <details>
+        <summary>
+          <div class="sku-box">ED-02</div>
+          <span class="item-title">Monks of B.V.M. of Mt. Carmel</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.carmelitemonks.org/" target="_blank">Cody, Wyoming, USA</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.carmelitemonks.org/Slideshow/images/Mass_slide.jpg" alt="Carmel Monks" class="spec-image">
+        </div>
+      </details>
 
+      <details>
+        <summary>
+          <div class="sku-box">ED-03</div>
+          <span class="item-title">Our Lady of Clear Creek Abbey</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://clearcreekmonks.org/" target="_blank">Tulsa, Oklahoma</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://heyerarchitect.com/application/files/3016/3430/6932/cropped_exterior_with_proposed_overlay.jpg" alt="Clear Creek" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Editio Critica Maior (ECM)</summary>
-      <ul>
-        <li>The Gospel of Mark
-          <span class="isbn">ISBNs: 978-3-438-05615-3, 978-3-438-05616-0, 978-3-438-05617-7</span>
-        </li>
-        <li>The Acts of the Apostles
-          <span class="isbn">ISBNs: 978-3-438-05609-2, 978-3-438-05610-8, 978-3-438-05612-2, 978-3-438-05613-9</span>
-        </li>
-        <li>Catholic Letters
-          <span class="isbn">ISBNs: 978-3-438-05606-1, 978-3-438-05607-8</span>
-        </li>
-        <li>Revelation
-          <span class="isbn">ISBNs: 978-3-438-05619-1, 978-3-438-05620-7, 978-3-438-05621-4, 978-3-438-05622-1</span>
-        </li>
-        <li>Parallel Pericopes
-          <span class="isbn">ISBN: 978-3-438-05608-5</span>
-        </li>
-      </ul>
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-04</div>
+          <span class="item-title">Fraternity of Saint Vincent Ferrer</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Dominican Inspired</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.chemere.org/" target="_blank">Chémeré-le-Roi, France</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.chemere.org/content/images/2024/09/altare-padrejourdain_gallizio-8.jpg" alt="Vincent Ferrer" class="spec-image">
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sku-box">ED-05</div>
+          <span class="item-title">Abbey of St. Benedict on the Mountain</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://en.nursia.org/" target="_blank">Norcia, Italy</a></span></li>
+            <li><span class="data-label">Abbot</span><span class="data-value">Rt. Rev. Dom Benedict Nivakoff OSB</span></li>
+            <li><span class="data-label">Languages</span><span class="data-value">English, Italian</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://myislandnotes.wordpress.com/wp-content/uploads/2016/06/full-shot-mt-st.jpg" alt="Norcia" class="spec-image">
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sku-box">ED-06</div>
+          <span class="item-title">Canons Regular of the New Jerusalem</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://canonsregular.com/" target="_blank">West Virginia, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Very Rev. Daniel Augustine Oppenheimer</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://images.ctfassets.net/e3u8n5c7hpfb/2avB8SUrPNwFdHLC3qTFvL/0254d3192273704410b47955f45f3cf2/easter-mass-consecration.jpeg?w=750&h=500&fl=progressive&q=50&fm=jpg" alt="CRNJ" class="spec-image">
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sku-box">ED-07</div>
+          <span class="item-title">Abbey of Saint Madeleine of Barroux</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Affiliation</span><span class="data-value">Ecclesia Dei Affiliated</span></li>
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.barroux.org/" target="_blank">Le Barroux, France</a></span></li>
+            <li><span class="data-label">Abbot</span><span class="data-value">Dom Louis-Marie de Geyer d’Orth, OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English / French</span></li>
+          </ul>
+          <img src="https://www.barroux.org/wp-content/uploads/2022/12/DJI_0741.jpg" alt="Barroux" class="spec-image">
+        </div>
+      </details>
+
+    </div>
+
   </div>
+
 </body>
 </html>
