@@ -3,353 +3,495 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Traditional Religious Life</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <title>Religious Life - DonHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f2ed;
-      --text: #1c1e21;
-      --border: #c4b998;
-      --link: #5b3e1d;
-      --header: #fffdf6;
-      --file-bg: #fefcf8;
-      --accent: #b29763;
+      /* The Platonic Red: Absolute, Deep, Visceral */
+      --red-essence: #990000;
+      --red-vivid: #ff0000;
+      --light: #ffffff;
+      --border-width: 2px;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Roboto Mono', monospace;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .navbar {
-      background: var(--header);
-      padding: 1rem 2rem;
-      border-bottom: 2px solid var(--border);
-      font-size: 1.4rem;
-      font-weight: bold;
+      padding: 0;
+      background-color: var(--red-essence);
+      color: var(--light);
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .logo {
-      height: 80px;
-      width: 80px;
-      border-radius: 6px;
-      box-shadow: 0 0 25px 10px rgba(255, 230, 180, 0.75);
-    }
+    a { color: inherit; text-decoration: none; }
 
+    /* --- Layout --- */
     .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      background: var(--file-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      width: 100%;
+      max-width: 900px; /* Slightly wider for content */
       padding: 2rem;
+      position: relative;
+    }
+
+    /* --- Header --- */
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--light);
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
     h1 {
-      font-size: 2.2rem;
-      color: var(--link);
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
     }
 
-    h2 {
-      font-size: 1.5rem;
+    .back-link {
+      font-size: 0.9rem;
+      border: 1px solid var(--light);
+      padding: 5px 10px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--light);
+      color: var(--red-essence);
+    }
+
+    /* --- The Data List (Details/Summary) --- */
+    .spec-sheet {
+      display: flex;
+      flex-direction: column;
+      border: var(--border-width) solid var(--light);
+      background: rgba(0,0,0,0.1);
       margin-top: 2rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.3rem;
-      color: #5a3c1c;
     }
 
     details {
-      margin: 1rem 0;
-      padding: 0.5rem 1rem;
-      background: #fffaf2;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border-bottom: 1px dashed var(--light);
+      transition: all 0.2s ease;
     }
 
+    details:last-child { border-bottom: none; }
+
+    /* Summary: Acts like the nav-item */
     summary {
+      display: grid;
+      grid-template-columns: 100px 1fr auto; /* SKU | Title | Indicator */
+      align-items: center;
+      padding: 1.5rem;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: var(--link);
-    }
-
-    summary:hover {
-      color: #a0683f;
-    }
-
-    ul {
       list-style: none;
-      padding-left: 1rem;
+      transition: background 0.2s;
     }
 
-    li {
-      margin-bottom: 0.6rem;
+    summary::-webkit-details-marker { display: none; }
+
+    /* Hover State */
+    summary:hover {
+      background-color: rgba(255,255,255,0.1);
     }
 
-    a {
-      color: var(--link);
-      text-decoration: none;
+    /* Active/Open State (Inverted) */
+    details[open] summary {
+      background-color: var(--light);
+      color: var(--red-essence);
+      border-bottom: 1px solid var(--red-essence);
     }
 
-    a:hover {
+    /* Elements inside Summary */
+    .sku-box {
+      font-size: 0.8rem;
+      border: 1px solid var(--light);
+      padding: 4px;
+      text-align: center;
+      margin-right: 1.5rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    details[open] summary .sku-box {
+      border-color: var(--red-essence);
+      background: var(--red-essence);
+      color: var(--light);
+    }
+
+    .item-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .status-indicator {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      border: 1px solid var(--light);
+      padding: 2px 8px;
+      opacity: 0.6;
+    }
+
+    details[open] summary .status-indicator {
+      border-color: var(--red-essence);
+      color: var(--red-essence);
+      opacity: 1;
+      font-weight: bold;
+      content: "OPEN"; /* Not possible in CSS directly, but visual style changes */
+    }
+
+    /* --- Expanded Content --- */
+    .data-panel {
+      padding: 2rem;
+      background: rgba(0,0,0,0.2);
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .data-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .data-list li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .data-label {
+      opacity: 0.6;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .data-value {
+      font-weight: 600;
+    }
+    
+    .data-value a {
       text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+    
+    .data-value a:hover {
+      background: var(--light);
+      color: var(--red-essence);
+      text-decoration: none;
+      padding: 0 4px;
     }
 
-    .note {
-      color: #a0492b;
+    .warning {
+      color: #ff9999;
+      border: 1px solid #ff9999;
+      padding: 0.5rem;
+      display: inline-block;
+      margin-top: 1rem;
+      text-transform: uppercase;
       font-weight: bold;
     }
 
-    .order-img {
-      margin-top: 0.75rem;
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    /* Images */
+    .spec-image {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--light);
+      filter: grayscale(100%) contrast(120%);
+      transition: filter 0.3s;
+    }
+
+    .spec-image:hover {
+      filter: grayscale(0%) contrast(100%);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .data-panel { grid-template-columns: 1fr; }
+      summary { grid-template-columns: 1fr auto; gap: 1rem; }
+      .sku-box { grid-row: 1; width: fit-content; margin-bottom: 0.5rem; }
+      .item-title { grid-row: 2; grid-column: 1 / -1; }
+      .status-indicator { grid-row: 1; grid-column: 2; justify-self: end; }
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <div>DonHub</div>
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSao6NgWmh45d3j2qGEouJZdSkrDdFyjUtzx4HHhIUXgnpHnfZE" alt="Logo" class="logo">
-  </div>
 
   <div class="container">
-    <h1>Traditional Religious Life</h1>
+    <header>
+      <h1>Religious Life</h1>
+      <a href="index.html" class="back-link">&lt; Return to Hub</a>
+    </header>
 
-    <h2>SSPX Affiliated Religious Orders</h2>
+    <div class="spec-sheet">
 
-    <details>
-      <summary>Brothers of the Priestly Fraternity of Saint Pius X</summary>
-      <ul>
-        <li><b>Fratres Sacerdotalis Fraternitatis Sancti Pii X</b></li>
-        <li><a href="https://holyangels-novitiate.com/en" target="_blank">Holy Angels Novitiate, Winona, Minnesota, USA</a></li>
-        <li>Rector: Fr. Charles J. Ward, SSPX</li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: No</li>
-        <li>How to Contact: Contact page, Letter, or Telephone</li>
-      </ul>
-      <img src="https://sspx.org/sites/default/files/drupal-7/winona.jpg" alt="Holy Angels Novitiate" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-01</div>
+          <span class="item-title">Holy Angels Novitiate</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Original Name</span><span class="data-value">Fratres Sacerdotalis Fraternitatis Sancti Pii X</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://holyangels-novitiate.com/en" target="_blank">Winona, Minnesota, USA</a></span></li>
+            <li><span class="data-label">Rector</span><span class="data-value">Fr. Charles J. Ward, SSPX</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">No</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Contact page, Letter, or Telephone</span></li>
+          </ul>
+          <img src="https://sspx.org/sites/default/files/drupal-7/winona.jpg" alt="Holy Angels" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Fraternity of the Transfiguration</summary>
-      <ul>
-        <li><b>Fraternité de la Transfiguration</b></li>
-        <li><a href="https://transfiguration.over-blog.com/" target="_blank">Maison Saint Joseph, Mérigny, France</a></li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Yes – International Seminary of Saint Pius X, Écône</li>
-        <li>How to Contact: Contact page, Letter, Fax or Telephone</li>
-      </ul>
-      <img src="https://image.over-blog.com/tkTVZahU3RB7Hxcb8QReh9cmeWs=/filters:no_upscale()/image%2F2319146%2F20170406%2Fob_1e0f06_fraternite-de-la-transfiguration-12.JPG" alt="Fraternity of the Transfiguration" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-02</div>
+          <span class="item-title">Fraternity of the Transfiguration</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Original Name</span><span class="data-value">Fraternité de la Transfiguration</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://transfiguration.over-blog.com/" target="_blank">Mérigny, France</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Écône)</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Contact page, Letter, Fax, Telephone</span></li>
+          </ul>
+          <img src="https://image.over-blog.com/tkTVZahU3RB7Hxcb8QReh9cmeWs=/filters:no_upscale()/image%2F2319146%2F20170406%2Fob_1e0f06_fraternite-de-la-transfiguration-12.JPG" alt="Transfiguration" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Friars of Our Lady of the Rosary (Dominicans)</summary>
-      <ul>
-        <li><b>Frères de Notre-Dame-Du-Rosaire</b></li>
-        <li><a href="https://laportelatine.org/communautes-amies/les-freres-de-notre-dame-du-rosaire-dominicains" target="_blank">Maison St-Paul, Saint-Paul-de-Serre, France</a></li>
-        <li>Superior: Fr. Raymond O.P.</li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Unknown</li>
-        <li>How to Contact: Letter or Telephone</li>
-        <li class="note">⚠️ NOT ACCEPTING VOCATIONS ⚠️</li>
-      </ul>
-      <img src="https://laportelatine.org/wp-content/uploads/2020/04/DSC_02991.jpg" alt="Friars of Our Lady of the Rosary" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-03</div>
+          <span class="item-title">Friars of Our Lady of the Rosary</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Dominicans</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://laportelatine.org/communautes-amies/les-freres-de-notre-dame-du-rosaire-dominicains" target="_blank">Saint-Paul-de-Serre, France</a></span></li>
+            <li><span class="data-label">Superior</span><span class="data-value">Fr. Raymond O.P.</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter or Telephone</span></li>
+            <div class="warning">⚠️ Not Accepting Vocations</div>
+          </ul>
+          <img src="https://laportelatine.org/wp-content/uploads/2020/04/DSC_02991.jpg" alt="Friars Rosary" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Capuchins Friars Minor of Traditional Observance (Franciscans)</summary>
-      <ul>
-        <li><b>Custodie des Frères Mineurs Capuchins D’Observance Traditionnelle</b></li>
-        <li><a href="https://capucins-morgon.fr/" target="_blank">Couvent Saint-François, Villié-Morgon, France (Mother House)</a></li>
-        <li>Couvent Saint-Antoine, Castlenau-d’Arbieu, France</li>
-        <li>Couvent Saint Bonaventure, Cour-Cheverny, France</li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Yes – International Seminary of Saint Pius X, Écône</li>
-        <li>How to Contact: Letter</li>
-      </ul>
-      <img src="https://capucins-morgon.fr/images/community/cE0hxAtcl24EqTYxyIraWQfoVEqOEHTHYrtUQEIF.jpg" alt="Capuchins Friars Minor" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-04</div>
+          <span class="item-title">Capuchins Friars Minor</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Franciscans (Traditional Observance)</span></li>
+            <li><span class="data-label">Mother House</span><span class="data-value"><a href="https://capucins-morgon.fr/" target="_blank">Villié-Morgon, France</a></span></li>
+            <li><span class="data-label">Other Houses</span><span class="data-value">Castlenau-d’Arbieu; Cour-Cheverny</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Écône)</span></li>
+          </ul>
+          <img src="https://capucins-morgon.fr/images/community/cE0hxAtcl24EqTYxyIraWQfoVEqOEHTHYrtUQEIF.jpg" alt="Capuchins" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Traditional Redemptorist Missioners</summary>
-      <ul>
-        <li><b>Traditional Redemptorist Missioners</b></li>
-        <li><a href="https://redemptoris.org/" target="_blank">Holy Redeemer House, Mussey, Michigan, USA</a></li>
-        <li>Prior: Fr. Alphonsus Maria, CSsR</li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Unknown</li>
-        <li>How to Contact: Letter or Telephone</li>
-        <li class="note">⚠️ NOT ACCEPTING VOCATIONS ⚠️</li>
-      </ul>
-      <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqnklB6l8-kUiDu2FvZAeASoqC-YM2HuMvZ8FWsWdAPoTKXC-5rXHouqISiWxAmsek_dK4hQ5hKGdQlmSjhnu2JkK4E20mBKt_YWu2H1YtU8ACkem_h7fo3U7P-ehbnzlVKCZnqyg=s680-w680-h510-rw" alt="Traditional Redemptorist Missioners" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-05</div>
+          <span class="item-title">Traditional Redemptorist Missioners</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://redemptoris.org/" target="_blank">Mussey, Michigan, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Alphonsus Maria, CSsR</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter or Telephone</span></li>
+            <div class="warning">⚠️ Not Accepting Vocations</div>
+          </ul>
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqnklB6l8-kUiDu2FvZAeASoqC-YM2HuMvZ8FWsWdAPoTKXC-5rXHouqISiWxAmsek_dK4hQ5hKGdQlmSjhnu2JkK4E20mBKt_YWu2H1YtU8ACkem_h7fo3U7P-ehbnzlVKCZnqyg=s680-w680-h510-rw" alt="Redemptorists" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Our Lady of Guadalupe Monastery (Benedictine)</summary>
-      <ul>
-        <li><b>Our Lady of Guadalupe Monastery</b></li>
-        <li><a href="https://ourladyofguadalupemonastery.com/" target="_blank">Silver City, New Mexico, USA</a></li>
-        <li>Prior: Fr. Cyprian, OSB</li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes – St. Thomas Aquinas Seminary, Dillwyn</li>
-        <li>How to Contact: Email, Telephone, or Letter</li>
-      </ul>
-      <img src="https://ourladyofguadalupemonastery.com/cdn/shop/files/Visit_Page_header.png?v=1720450457&width=3840" alt="Our Lady of Guadalupe Monastery" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-06</div>
+          <span class="item-title">Our Lady of Guadalupe Monastery</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://ourladyofguadalupemonastery.com/" target="_blank">Silver City, New Mexico, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Cyprian, OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes (via Dillwyn)</span></li>
+          </ul>
+          <img src="https://ourladyofguadalupemonastery.com/cdn/shop/files/Visit_Page_header.png?v=1720450457&width=3840" alt="Guadalupe" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Monastery of the Immaculate Heart of Mary (Benedictine)</summary>
-      <ul>
-        <li><b>Kloster vom Unbefleckten Herzen Mariens</b></li>
-        <li><a href="https://www.kloster-reichenstein.de/" target="_blank">Kloster vom Unbefleckten Herzen Mariens, Monschau, Germany</a></li>
-        <li><a href="https://klosterreichenstein.org/" target="_blank">Alternate Site</a></li>
-        <li>Prior: Fr. Bernhard OSB</li>
-        <li>Language Spoken: German</li>
-        <li>Holy Orders Possible: Unknown</li>
-        <li>How to Contact: Letter</li>
-      </ul>
-      <img src="https://fsspx.news/sites/default/files/styles/content_image_16_9_desktop/public/fsspxactualites/fsspxnews/K_Kloster_2005_02.jpg?itok=6in-Ug29" alt="Monastery of the Immaculate Heart of Mary" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">SSPX-07</div>
+          <span class="item-title">Monastery of the Immaculate Heart</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.kloster-reichenstein.de/" target="_blank">Monschau, Germany</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Fr. Bernhard OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">German</span></li>
+            <li><span class="data-label">Contact</span><span class="data-value">Letter</span></li>
+          </ul>
+          <img src="https://fsspx.news/sites/default/files/styles/content_image_16_9_desktop/public/fsspxactualites/fsspxnews/K_Kloster_2005_02.jpg?itok=6in-Ug29" alt="Reichenstein" class="spec-image">
+        </div>
+      </details>
 
-    <h2>Ex-Ecclesia Dei Religious Orders</h2>
+      <details>
+        <summary>
+          <div class="sku-box">ED-01</div>
+          <span class="item-title">Discalced Hermits of Mt. Carmel</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.edcarm.org/" target="_blank">Colorado & Pennsylvania, USA</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.edcarm.org/wp-content/uploads/2022/11/mass-500.webp" alt="Carmel Hermits" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Discalced Hermits of Our Lady of Mount Carmel</summary>
-      <ul>
-        <li><b>Discalced Hermits of Our Lady of Mount Carmel</b></li>
-        <li><a href="https://www.edcarm.org/" target="_blank">Monasteries in Colorado and Pennsylvania, USA</a></li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Letter</li>
-      </ul>
-      <img src="https://www.edcarm.org/wp-content/uploads/2022/11/mass-500.webp" alt="Discalced Hermits of Our Lady of Mount Carmel" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-02</div>
+          <span class="item-title">Monks of B.V.M. of Mt. Carmel</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.carmelitemonks.org/" target="_blank">Cody, Wyoming, USA</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.carmelitemonks.org/Slideshow/images/Mass_slide.jpg" alt="Carmel Monks" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Monks of the Most Blessed Virgin Mary of Mount Carmel</summary>
-      <ul>
-        <li><b>Monks of the Most Blessed Virgin Mary of Mount Carmel</b></li>
-        <li><a href="https://www.carmelitemonks.org/" target="_blank">Cody, Wyoming, USA</a></li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form on Website</li>
-      </ul>
-      <img src="https://www.carmelitemonks.org/Slideshow/images/Mass_slide.jpg" alt="Carmelite Monks" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-03</div>
+          <span class="item-title">Our Lady of Clear Creek Abbey</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://clearcreekmonks.org/" target="_blank">Tulsa, Oklahoma</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://heyerarchitect.com/application/files/3016/3430/6932/cropped_exterior_with_proposed_overlay.jpg" alt="Clear Creek" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Our Lady of Clear Creek Abbey (Benedictine)</summary>
-      <ul>
-        <li><b>Our Lady of Clear Creek Abbey</b></li>
-        <li><a href="https://clearcreekmonks.org/" target="_blank">Tulsa, Oklahoma</a></li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form on Website</li>
-      </ul>
-      <img src="https://heyerarchitect.com/application/files/3016/3430/6932/cropped_exterior_with_proposed_overlay.jpg" alt="Clear Creek Abbey" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-04</div>
+          <span class="item-title">Fraternity of Saint Vincent Ferrer</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Dominican Inspired</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.chemere.org/" target="_blank">Chémeré-le-Roi, France</a></span></li>
+            <li><span class="data-label">Language</span><span class="data-value">French</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://www.chemere.org/content/images/2024/09/altare-padrejourdain_gallizio-8.jpg" alt="Vincent Ferrer" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Fraternity of Saint Vincent Ferrer (Dominican Inspired)</summary>
-      <ul>
-        <li><b>Fraternité St-Vincent-Ferrier</b></li>
-        <li><a href="https://www.chemere.org/" target="_blank">Couvent St-Thomas d'Aquin, Chémeré-le-Roi, France</a></li>
-        <li><a href="https://www.vincentferrer.org/" target="_blank">vincentferrer.org</a></li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form on Website</li>
-      </ul>
-      <img src="https://www.chemere.org/content/images/2024/09/altare-padrejourdain_gallizio-8.jpg" alt="Fraternity of Saint Vincent Ferrer" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-05</div>
+          <span class="item-title">Abbey of St. Benedict on the Mountain</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://en.nursia.org/" target="_blank">Norcia, Italy</a></span></li>
+            <li><span class="data-label">Abbot</span><span class="data-value">Rt. Rev. Dom Benedict Nivakoff OSB</span></li>
+            <li><span class="data-label">Languages</span><span class="data-value">English, Italian</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://myislandnotes.wordpress.com/wp-content/uploads/2016/06/full-shot-mt-st.jpg" alt="Norcia" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Abbey of St. Benedict on the Mountain (Benedictine)</summary>
-      <ul>
-        <li><b>Abbazia di San Bendetto In Monte</b></li>
-        <li><a href="https://en.nursia.org/" target="_blank">Norcia Abbey, Norcia, Perugia, Italy</a></li>
-        <li>Abbot: Rt. Rev. Dom Benedict Nivakoff OSB</li>
-        <li>Language Spoken: English, Italian</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form on Website, Email, Letter</li>
-      </ul>
-      <img src="https://myislandnotes.wordpress.com/wp-content/uploads/2016/06/full-shot-mt-st.jpg" alt="Norcia Abbey" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-06</div>
+          <span class="item-title">Canons Regular of the New Jerusalem</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://canonsregular.com/" target="_blank">West Virginia, USA</a></span></li>
+            <li><span class="data-label">Prior</span><span class="data-value">Very Rev. Daniel Augustine Oppenheimer</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English</span></li>
+            <li><span class="data-label">Holy Orders</span><span class="data-value">Yes</span></li>
+          </ul>
+          <img src="https://images.ctfassets.net/e3u8n5c7hpfb/2avB8SUrPNwFdHLC3qTFvL/0254d3192273704410b47955f45f3cf2/easter-mass-consecration.jpeg?w=750&h=500&fl=progressive&q=50&fm=jpg" alt="CRNJ" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Canons Regular of the New Jerusalem</summary>
-      <ul>
-        <li><b>Canons Regular of the New Jerusalem</b></li>
-        <li><a href="https://canonsregular.com/" target="_blank">Charles Town, West Virginia, USA</a></li>
-        <li>Prior: The Very Rev. Daniel Augustine Oppenheimer, CRNJ</li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form, Email, Telephone, or Letter</li>
-      </ul>
-      <img src="https://images.ctfassets.net/e3u8n5c7hpfb/2avB8SUrPNwFdHLC3qTFvL/0254d3192273704410b47955f45f3cf2/easter-mass-consecration.jpeg?w=750&h=500&fl=progressive&q=50&fm=jpg" alt="CRNJ" class="order-img">
-    </details>
+      <details>
+        <summary>
+          <div class="sku-box">ED-07</div>
+          <span class="item-title">Abbey of Saint Madeleine of Barroux</span>
+          <div class="status-indicator">Expand</div>
+        </summary>
+        <div class="data-panel">
+          <ul class="data-list">
+            <li><span class="data-label">Order</span><span class="data-value">Benedictine</span></li>
+            <li><span class="data-label">Location</span><span class="data-value"><a href="https://www.barroux.org/" target="_blank">Le Barroux, France</a></span></li>
+            <li><span class="data-label">Abbot</span><span class="data-value">Dom Louis-Marie de Geyer d’Orth, OSB</span></li>
+            <li><span class="data-label">Language</span><span class="data-value">English / French</span></li>
+          </ul>
+          <img src="https://www.barroux.org/wp-content/uploads/2022/12/DJI_0741.jpg" alt="Barroux" class="spec-image">
+        </div>
+      </details>
 
-    <details>
-      <summary>Abbey of Saint Madeleine of Barroux (Benedictine)</summary>
-      <ul>
-        <li><b>Abbaye Sainte-Madeleine du Barroux</b></li>
-        <li><a href="https://www.barroux.org/" target="_blank">Le Barroux Abbey, Vaucluse, France</a></li>
-        <li>Abbot: Dom Louis-Marie de Geyer d’Orth, OSB</li>
-        <li>Language Spoken: English</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Contact Form, Telephone</li>
-      </ul>
-      <img src="https://www.barroux.org/wp-content/uploads/2022/12/DJI_0741.jpg" alt="Barroux Abbey" class="order-img">
-    </details>
-
-    <h2>SSPX Resistance Religious Orders</h2>
-
-    <details>
-      <summary>Fraternity of Saint Dominic (Dominicans)</summary>
-      <ul>
-        <li><b>Fraternité Saint Dominique</b></li>
-        <li><a href="https://www.dominicainsavrille.fr/" target="_blank">Le Couvent de la Haye-aux-Bonshommes, Avrillé, Maine-et-Loire, France</a></li>
-        <li>Prior: Marie-Dominque, OP</li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Letter or Contact Form</li>
-      </ul>
-      <img src="https://www.dominicainsavrille.fr/wp-content/uploads/2024/11/060_dominicains_avrille_.webp" alt="Fraternity of Saint Dominic" class="order-img">
-    </details>
-
-    <details>
-      <summary>Monastery of the Holy Cross (Benedictine)</summary>
-      <ul>
-        <li><b>Mosteiro da Santa Cruz</b></li>
-        <li><a href="https://www.mosteirodasantacruz.org/" target="_blank">Mosteiro da Santa Cruz, Nova Friburgo, RJ, Brazil</a></li>
-        <li>Abbot: Dom (Bp.) Thomas Aquinas, OSB</li>
-        <li>Language Spoken: Portuguese</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Email or Letter</li>
-      </ul>
-      <img src="https://static.wixstatic.com/media/c73eb9_e29251e193bc43cea7b3d79cf5a169b1~mv2.jpg/v1/fit/w_622,h_782,q_90,enc_avif,quality_auto/c73eb9_e29251e193bc43cea7b3d79cf5a169b1~mv2.jpg" alt="Monastery of the Holy Cross" class="order-img">
-    </details>
-
-    <details>
-      <summary>Monastery of Our Lady of Bellaigue (Benedictine)</summary>
-      <ul>
-        <li><b>Monastère Bénédictin de Notre-Dame de Bellaigue</b></li>
-        <li>Abbaye Notre-Dame de Bellaigue, Virlet, Puy-de-Dôme, France</li>
-        <li>Language Spoken: French</li>
-        <li>Holy Orders Possible: Yes</li>
-        <li>How to Contact: Letter to Monastère Notre-Dame de Bellaigue 63330 Virlet France</li>
-      </ul>
-      <img src="https://i.pinimg.com/736x/e8/40/81/e84081f8b47352b65923712d3f39f05a.jpg" alt="Bellaigue Monastery" class="order-img">
-    </details>
+    </div>
 
   </div>
+
 </body>
 </html>
