@@ -30,6 +30,7 @@
             height: 100vh;
             overflow: hidden; /* App-style layout */
             display: flex;
+            transition: background-color 0.2s ease; /* Smooth return to base color */
         }
 
         /* --- UTILITIES --- */
@@ -269,7 +270,25 @@
             border-color: var(--light);
         }
 
-        /* Animation Classes */
+        /* Animation Classes for Body/Screen */
+        @keyframes bodyFlashGreen {
+            0% { background-color: #008800; } /* Deep Green Flash */
+            100% { background-color: var(--red-essence); }
+        }
+        @keyframes bodyFlashRed {
+            0% { background-color: #ff3333; } /* Bright Red Flash */
+            100% { background-color: var(--red-essence); }
+        }
+        
+        .body-flash-success {
+            animation: bodyFlashGreen 0.5s ease-out;
+        }
+        
+        .body-flash-error {
+            animation: bodyFlashRed 0.5s ease-out;
+        }
+
+        /* Input Box Animations (kept for focused feedback) */
         .flash-success {
             animation: flashGreen 0.5s ease;
         }
@@ -1115,7 +1134,11 @@
             
             const isCorrect = correctAnswers.includes(userAnswer);
 
-            // Remove previous animations to re-trigger if needed (though we usually move to next)
+            // Remove previous animations on body
+            document.body.classList.remove('body-flash-success', 'body-flash-error');
+            void document.body.offsetWidth; // Trigger reflow
+            
+            // Remove previous animations on input
             answerInput.classList.remove('flash-success', 'flash-error');
             void answerInput.offsetWidth; // Trigger reflow
 
@@ -1123,6 +1146,7 @@
                 feedbackArea.innerHTML = `<span class="feedback-correct">CORRECT INPUT</span>`;
                 deckScores[currentDeckKey].correct++;
                 answerInput.classList.add('flash-success');
+                document.body.classList.add('body-flash-success');
             } else {
                 feedbackArea.innerHTML = `
                     <span class="feedback-incorrect">INPUT ERROR</span>
@@ -1130,6 +1154,7 @@
                 `;
                 deckScores[currentDeckKey].incorrect++;
                 answerInput.classList.add('flash-error');
+                document.body.classList.add('body-flash-error');
             }
             
             saveScores(); // Persist
